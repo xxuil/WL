@@ -382,6 +382,15 @@ public class Main {
         String end = ladder.get(ladder.size() - 1);
 
         if(ladder.size() == 2){
+        	if(matchCheck(ladder.get(0), ladder.get(1))){
+        		System.out.println("a " + ladder.size() +"-rung word ladder exists between " + start + " and "
+                        + end + ".");
+        		for(int i = 0; i < ladder.size(); i++){
+                    System.out.println(ladder.get(i));
+                }
+        		return;
+        	}
+        	
             System.out.println("no word ladder can be found between " + start + " and "
                     + end + ".");
             return;
