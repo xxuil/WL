@@ -43,7 +43,7 @@ public class Main {
             String start = new String(inputList.get(0));
             String end = new String(inputList.get(1));
 
-            ArrayList<String> output = getWordLadderDFS(start, end);
+            ArrayList<String> output = getWordLadderBFS(start, end);
             if(output == null){
                 output = new ArrayList<String>();
                 output.add(start);
@@ -51,30 +51,6 @@ public class Main {
             }
             printLadder(output);
         }
-
-
-
-        /**
-         * Below is some random test code for BFS
-         */
-		/*System.out.println("BFS Test");
-		String start = "aldol";
-		String end = "drawl";
-		ArrayList<String> BFS = getWordLadderBFS(start, end);
-
-		System.out.print("Test Output Ladder: ");
-
-		if(BFS == null){
-			System.out.println("No Ladder");
-			return;
-		}
-
-		for(int i = 0; i < BFS.size(); i++){
-			String print = BFS.get(i);
-			System.out.print(print + " ");
-		}
-		System.out.println();
-		*/
     }
 
     public static void initialize() {
@@ -149,7 +125,13 @@ public class Main {
         ArrayList<String> temp = recursiveDFS(start.toUpperCase(), end.toUpperCase());
 
         initialize();
-
+        
+        if(temp == null){
+			ArrayList<String> failList = new ArrayList<String>();
+			failList.add(start);
+			failList.add(end);
+			return failList;
+		}
 
         return temp;
     }
@@ -227,9 +209,11 @@ public class Main {
         ArrayList<ArrayList<String>> temp = createBFS(start, end, dict);
 
         if(temp.isEmpty()){
-            //return null if no ladder found
-            return null;
-        }
+			ArrayList<String> failList = new ArrayList<String>();
+			failList.add(start);
+			failList.add(end);
+			return failList;
+		}
 
         LinkedList<String> wordLadder = new LinkedList<String>();
         wordLadder.add(end);
@@ -297,7 +281,7 @@ public class Main {
                         //push it into the queue and delete it from dict
                         temp1.add(tempString);
                         temp2.add(level + 1);
-                        dict.remove(tempString);
+                        dict.remove(tempString.toUpperCase());
 
                         if(temp.size() == level + 1){
                             temp.add(new ArrayList<String>());
