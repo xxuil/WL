@@ -43,7 +43,7 @@ public class Main {
             String start = new String(inputList.get(0));
             String end = new String(inputList.get(1));
 
-            ArrayList<String> output = getWordLadderBFS(start, end);
+            ArrayList<String> output = getWordLadderDFS(start, end);
             if(output == null){
                 output = new ArrayList<String>();
                 output.add(start);
